@@ -11,6 +11,14 @@ Voice-engine is used as a **voice interface** and for **DOA** ([Direction of Arr
 
 CMU Sphinx and pocketsphinx is used for **speech recognition**.
 
+## Installation
+
+1. Install necessary [drivers](#drivers)
+2. Install [virtualenv](https://virtualenv.pypa.io/en/stable/) (optional)
+3. Install all [dependencies](#dependencies)
+4. `git clone https://github.com/Rezar/ODBot.git`
+5. Apply patch to voice-engine
+6. Modify `keyphrase.list` as necessary (optional) 
 
 ## Dependencies
 
@@ -24,7 +32,7 @@ CMU Sphinx and pocketsphinx is used for **speech recognition**.
 
 
 
-## Driver
+## Drivers
 
  - [seeed-voicecard driver](https://github.com/respeaker/seeed-voicecard) - Drivers for quad AC108 ADC.
 
