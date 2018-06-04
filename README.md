@@ -17,12 +17,12 @@ CMU Sphinx and pocketsphinx is used for **speech recognition**.
 2. Install [virtualenv](https://virtualenv.pypa.io/en/stable/) (optional)
 3. Install all [dependencies](#dependencies)
 4. `git clone https://github.com/Rezar/ODBot.git`
-5. Apply patch to voice-engine
-6. Modify `keyphrase.list` as necessary (optional) 
+5. Apply [voice-engine patch](https://github.com/Rezar/ODBot/tree/master/voice-engine-patch)
+6. Modify `keyphrase.list` as necessary (optional)
 
 ## Dependencies
 
- - [Respeaker 4mic hat](https://github.com/respeaker/4mics_hat) - Uses [spidev](https://pypi.python.org/pypi/spidev) and [gpiozero](http://gpiozero.readthedocs.io/). 
+ - [Respeaker 4mic hat](https://github.com/respeaker/4mics_hat) - Uses [spidev](https://pypi.python.org/pypi/spidev) and [gpiozero](http://gpiozero.readthedocs.io/).
 	 - Snowboy and Google Assistant library installation is unnecessary.
  - [Voice-engine](https://github.com/voice-engine/voice-engine) - Used as a voice interface
 	 - Voice-engine needs to be modified in order to be used with pocketsphinx in this project. Please refer to instructions below after installation.
