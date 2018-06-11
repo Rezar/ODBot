@@ -13,3 +13,9 @@
 6- What are potential concerns that might hinder people from using the robot?
 
 7- How does it compare to using other devices such as wearable and how do users' expectations differ? 
+
+8- Support animal vs. robot
+
+9- Mediator between human and care giver. To collect the data
+
+10- User controls, what to control, when and how to get the data.
