@@ -23,3 +23,8 @@
 
 11- Inexpensive thermal camera sensor in hospital setting and detecting the patient status in emergency setting.
 
+12- Notification, Interupption and obtrusiveness policies should be different and not similar to smartphone and other wearables.
+
+13- What is the impact of physical appearance and emobidification on notification.
+
+14- depressed people wouldn't like to talk.
