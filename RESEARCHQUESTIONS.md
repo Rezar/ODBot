@@ -20,3 +20,6 @@
 9- Mediator between human and care giver. To collect the data and not substitute the care giver.
 
 10- User controls, what to control, when and how to get the data.
+
+11- Inexpensive thermal camera sensor in hospital setting and detecting the patient status in emergency setting.
+
