@@ -14,8 +14,9 @@
 
 7- How does it compare to using other devices such as wearable and how do users' expectations differ? 
 
-8- Support animal vs. robot
+8- Support animal vs. robot... different kinds of mental health issue (anxiety, depression, etc.)
+   challenges, benefits, issues.
 
-9- Mediator between human and care giver. To collect the data
+9- Mediator between human and care giver. To collect the data and not substitute the care giver.
 
 10- User controls, what to control, when and how to get the data.
