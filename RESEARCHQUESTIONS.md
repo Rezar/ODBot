@@ -28,3 +28,5 @@
 13- What is the impact of physical appearance and emobidification on notification.
 
 14- depressed people wouldn't like to talk.
+
+15- Adding on to #9, it could be very useful for someone who may have had trauma (or just shy) and doesn't feel safe to talk directly to another person about his/her problem.
