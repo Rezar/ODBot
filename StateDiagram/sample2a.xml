@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+This version is less state-centric and more modular.
+Stateactions and responses can be reused.
+id is used to identify specific elements
+-->
 <graph>
     <!-- States -->
     <state id="root" root>

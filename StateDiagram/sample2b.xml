@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+This version is less state-centric and more modular.
+Stateactions and responses can be reused
+names are used as unique identifiers
+-->
+<graph>
+    <!-- States -->
+    <state root>
+        <name>Root State</name>
+        <stateaction>sample3_specific_id_voice_command_hello</stateaction>
+    </state>
+    <state>
+        <name>State that says hello back</name>
+        <response>Saying Hello Back with LED</response>
+        <response>Sleeping for 5 seconds</response>
+        <response>Going back to Root State</response>
+    </state>
+    <!-- StateActions -->
+    <stateaction>
+        <name>sample3_specific_id_voice_command_hello</name>
+        <action>
+            <type>VOICE_COMMAND</type>
+            <value>hello</value>
+        </action>
+        <to>State that says hello back</to>
+    </stateaction>
+    
+    
+    <!-- Responses -->
+    <response>
+        <name>Saying Hello Back with LED</name>
+        <type>LED</type>
+        <value>Some Random LED Value</value>
+    </response>
+    <response>
+        <name>Sleeping for 5 seconds</name>
+        <type>SLEEP</type>
+        <value>5000</value>
+    </response>
+    <response>
+        <name>Going back to Root State</name>
+        <type>GO_TO_STATE</type>
+        <value>Root State</value>
+        <!-- root is the id of state -->
+    </response>
+</graph>

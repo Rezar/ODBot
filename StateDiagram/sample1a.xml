@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+This version is very state-centric.
+Stateactions and responses are not reused.
+States have unique names
+Very intuitive and easy to follow but duplicate code will be often used and file size can get quite big in a big project
+-->
+<graph>
+    <!-- States -->
+    <state root>
+        <name>Root State</name>
+        
+        <stateaction>
+            <action>
+                <type>VOICE_COMMAND</type>
+                <value>hello</value>
+            </action>
+            <to>State that says hello back</to>
+        </stateaction>
+    </state>
+    
+    <state>
+        <name>State that says hello back</name>
+        
+        <response>
+            <name>Saying Hello Back with LED</name>
+            <type>LED</type>
+            <value>Some Random LED Value</value>
+        </response>
+        
+        <response>
+            <name>Sleeping for 5 seconds</name>
+            <type>SLEEP</type>
+            <value>5000</value>
+        </response>
+        
+        <response>
+            <name>Going back to Root State</name>
+            <type>GO_TO_STATE</type>
+            <value>Root State</value>
+        </response>
+    </state>
+</graph>
