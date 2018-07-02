@@ -19,6 +19,19 @@ print("Current State: {}".format(graph.getCurrentState().name))
 """
 Output:
 
+Parsing...
+State:
+	Name: Root state
+	StateActions: 1 actions
+		StateAction: (Type: voice_command, Value: hello, To: State that says hello back)
+	Responses: 0 responses
+State:
+	Name: State that says hello back
+	StateActions: 0 actions
+	Responses: 3 responses
+		Response: (Name: Saying Hello Back with LED, Type: led, Value: Some Random LED Value)
+		Response: (Name: Sleeping for 5 seconds, Type: sleep, Value: 5000)
+		Response: (Name: Going back to Root State, Type: go_to_state, Value: State: (Name: Root state, Actions: set([StateAction: (Type: voice_command, Value: hello, To: State that says hello back)])))
 onStateChange()
 	New Current State: State: (Name: Root state, Actions: set([StateAction: (Type: voice_command, Value: hello, To: State that says hello back)]))
 	Executing responses for nextState...
