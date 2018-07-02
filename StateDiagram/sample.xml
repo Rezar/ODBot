@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<graph>
+    <!-- States -->
+    <state id="root" root>
+      <name>Root State</name>
+    </state>
+
+    <state id="hellostate" response="hello_led sleep_for_5000 goto_rootstate">
+      <name>State that says hello back</name>
+    </state>
+
+  <!-- StateActions -->
+  <stateaction>
+      <action>
+        <type>VOICE_COMMAND</type>
+        <value>hello</value>
+      </action>
+      <to>hellostate</to>
+      <!-- hellostate is the id of the state -->
+  </stateaction>
+
+  <!-- Responses -->
+  <response id="hello_led">
+    <name>Saying Hello Back with LED</name>
+    <type>LED</type>
+    <value>Some Random LED Value</value>
+  </response>
+
+  <response id="sleep_for_5000">
+    <name>Sleeping for 5 seconds</name>
+    <type>SLEEP</type>
+    <value>5000</value>
+  </response>
+
+  <response id="goto_rootstate">
+    <name>Going back to Root State</name>
+    <type>GO_TO_STATE</type>
+    <value>root</value>
+    <!-- root is the id of state -->
+  </response>
+
+
+</graph>
