@@ -1,7 +1,10 @@
 # Files and what they do
 StateGraph.py - The Graph class file
+
 Test.py - Demonstrates graph and how to add nodes and edges programmatically
+
 Test2.py - Demonstrates XMLParser and building the graph using it
+
 XMLParser.py - Class file that parses sample1a.xml
 
 # Sample file
