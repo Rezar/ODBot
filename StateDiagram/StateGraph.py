@@ -8,6 +8,17 @@ class ActionType:
     UNDEFINED = 'undefined'
     VOICE_COMMAND = 'voice_command'
 
+    # def getType(self, actiontype):
+    #     for var, val in ActionType.__dict__.items():
+    #         if actiontype == val:
+    #             return var
+    #     return None
+    def getType(self, actiontype):
+        if actiontype == self.UNDEFINED:
+            return self.UNDEFINED
+        elif actiontype == self.VOICE_COMMAND:
+            return self.VOICE_COMMAND
+
 class Action:
     """
     This Class combines ActionType and action value
@@ -51,6 +62,29 @@ class ResponseType:
     MOTOR_ROTATE = 'motor_rotate'
     GO_TO_STATE = 'go_to_state'
     SLEEP = 'sleep'
+
+    # def getType(self, type):
+    #     for var, val in ResponseType.__dict__.iteritems():
+    #         if type == val:
+    #             return var
+    #     return None
+
+    def getType(self, type):
+        if type == self.UNDEFINED:
+            return self.UNDEFINED
+        elif type == self.LED:
+            return self.LED
+        elif type == self.VOICE_RESPONSE:
+            return self.VOICE_RESPONSE
+        elif type == self.MOTOR_MOVE:
+            return self.MOTOR_MOVE
+        elif type == self.MOTOR_ROTATE:
+            return self.MOTOR_ROTATE
+        elif type == self.GO_TO_STATE:
+            return self.GO_TO_STATE
+        elif type == self.SLEEP:
+            return self.SLEEP
+        return self.UNDEFINED
 
 class Response:
     """
@@ -112,7 +146,7 @@ class StateGraph:
             self.state = state
             self.onStateChange()
         else:
-            print('state is not State but {}. {}', type(state), state)
+            print('state is not State but {}. {}'.format(type(state), state))
 
     def getCurrentState(self):
         return self.state

@@ -1,48 +1,8 @@
 from StateGraph import *
+from XMLParser import *
 
-graph = StateGraph()
+graph = XMLParser(file = "sample1a.xml").parse()
 
-#Define States
-rootState = State('Root state')
-helloState = State('State that says hello back')
-
-#Define state actions
-rootState.addAction(
-    StateAction(
-        Action(
-            ActionType.VOICE_COMMAND,
-            'hello'
-        ),
-        helloState
-    )
-)
-
-helloState.addResponse(
-    Response(
-        'Saying Hello Back with LED',
-        ResponseType.LED,
-        'Some Random LED Value'
-    )
-)
-
-helloState.addResponse(
-    Response(
-        'Sleeping for 5 seconds',
-        ResponseType.SLEEP,
-        5000
-    )
-)
-
-helloState.addResponse(
-    Response(
-        'Going back to Root State',
-        ResponseType.GO_TO_STATE,
-        rootState
-    )
-)
-
-#Set roto state
-graph.setCurrentState(rootState)
 
 
 #Check currnet state

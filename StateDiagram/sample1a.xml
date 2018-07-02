@@ -7,12 +7,12 @@ Very intuitive and easy to follow but duplicate code will be often used and file
 -->
 <graph>
     <!-- States -->
-    <state root>
-        <name>Root State</name>
+    <state>
+        <name>Root state</name>
         
         <stateaction>
             <action>
-                <type>VOICE_COMMAND</type>
+                <type>voice_command</type>
                 <value>hello</value>
             </action>
             <to>State that says hello back</to>
@@ -24,20 +24,20 @@ Very intuitive and easy to follow but duplicate code will be often used and file
         
         <response>
             <name>Saying Hello Back with LED</name>
-            <type>LED</type>
+            <type>led</type>
             <value>Some Random LED Value</value>
         </response>
         
         <response>
             <name>Sleeping for 5 seconds</name>
-            <type>SLEEP</type>
+            <type>sleep</type>
             <value>5000</value>
         </response>
         
         <response>
             <name>Going back to Root State</name>
-            <type>GO_TO_STATE</type>
-            <value>Root State</value>
+            <type>go_to_state</type>
+            <value>Root state</value>
         </response>
     </state>
 </graph>
