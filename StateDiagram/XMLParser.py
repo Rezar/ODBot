@@ -4,14 +4,19 @@ from StateGraph import *
 
 class XMLParser:
 
-    def __init__(self, file = "sample1a.xml"):
+    def printd(self, value):
+        if self.debug:
+            self.printd(value)
+
+    def __init__(self, file = "sample1a.xml", debug = False):
         self.file = file
+        self.debug = debug
 
     def parse(self):
         graph = StateGraph()
-        print("Parsing...")
+        self.printd("Parsing...")
 
-        tree = ET.parse('sample1a.xml')
+        tree = ET.parse(self.file)
         root = tree.getroot()
 
 
@@ -19,7 +24,7 @@ class XMLParser:
         Sample parser based on sample1a.xml
         """
 
-        # print(ET.tostring(root, encoding='utf8').decode('utf8'))
+        # self.printd(ET.tostring(root, encoding='utf8').decode('utf8'))
         states = {}
         rootState = None
         for state in root:
@@ -31,9 +36,9 @@ class XMLParser:
 
         for state in root:
             statename = state.find("name").text
-            print("State:")
-            print("\tName: {}".format(statename))
-            print("\tStateActions: {} actions".format(len(state.findall("stateaction"))))
+            self.printd("State:")
+            self.printd("\tName: {}".format(statename))
+            self.printd("\tStateActions: {} actions".format(len(state.findall("stateaction"))))
 
             #State Actions
             for stateaction in state.findall("stateaction"):
@@ -49,10 +54,10 @@ class XMLParser:
                     to
                 )
                 states[statename].addAction(stateactionObj)
-                print("\t\t{}".format(stateactionObj))
+                self.printd("\t\t{}".format(stateactionObj))
 
 
-            print("\tResponses: {} responses".format(len(state.findall("response"))))
+            self.printd("\tResponses: {} responses".format(len(state.findall("response"))))
             #Responses
             for response in state.findall("response"):
                 name = response.find("name").text
@@ -65,7 +70,7 @@ class XMLParser:
 
                 responseObj = Response(name, type, value)
                 states[statename].addResponse(responseObj)
-                print("\t\t{}".format(responseObj))
+                self.printd("\t\t{}".format(responseObj))
 
         graph.setCurrentState(rootState)
         return graph
