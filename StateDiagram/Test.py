@@ -2,12 +2,12 @@ from StateGraph import *
 
 graph = StateGraph()
 
-#Define States
+# Define States
 rootState = State('Root state')
 helloState = State('State that says hello back')
 
-#Define state actions
-rootState.addAction(
+# Define state actions
+rootState.add_action(
     StateAction(
         Action(
             ActionType.VOICE_COMMAND,
@@ -17,7 +17,7 @@ rootState.addAction(
     )
 )
 
-helloState.addResponse(
+helloState.add_response(
     Response(
         'Saying Hello Back with LED',
         ResponseType.LED,
@@ -25,7 +25,7 @@ helloState.addResponse(
     )
 )
 
-helloState.addResponse(
+helloState.add_response(
     Response(
         'Sleeping for 5 seconds',
         ResponseType.SLEEP,
@@ -33,7 +33,7 @@ helloState.addResponse(
     )
 )
 
-helloState.addResponse(
+helloState.add_response(
     Response(
         'Going back to Root State',
         ResponseType.GO_TO_STATE,
@@ -41,19 +41,19 @@ helloState.addResponse(
     )
 )
 
-#Set roto state
-graph.setCurrentState(rootState)
+# Set roto state
+graph.set_current_state(rootState)
 
 
-#Check currnet state
-print("Current State: {}".format(graph.getCurrentState().name))
+# Check currnet state
+print("Current State: {}".format(graph.get_current_state().name))
 
-#Simulate an action
+# Simulate an action
 print("Simulating Action of VoiceCommand hello")
-graph.onAction(ActionType.VOICE_COMMAND, 'hello')
+graph.apply_action(ActionType.VOICE_COMMAND, 'hello')
 
-#Check currnet state
-print("Current State: {}".format(graph.getCurrentState().name))
+# Check currnet state
+print("Current State: {}".format(graph.get_current_state().name))
 
 
 """

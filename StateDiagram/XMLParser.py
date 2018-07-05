@@ -1,4 +1,4 @@
-import xml.etree.ElementTree as ET
+import xml.etree.ElementTree as ElementTree
 from StateGraph import *
 
 
@@ -6,19 +6,18 @@ class XMLParser:
 
     def printd(self, value):
         if self.debug:
-            self.printd(value)
+            print(value)
 
-    def __init__(self, file = "sample1a.xml", debug = False):
-        self.file = file
+    def __init__(self, graph_file="sample1a.xml", debug=False):
+        self.file = graph_file
         self.debug = debug
 
     def parse(self):
         graph = StateGraph()
         self.printd("Parsing...")
 
-        tree = ET.parse(self.file)
+        tree = ElementTree.parse(self.file)
         root = tree.getroot()
-
 
         """
         Sample parser based on sample1a.xml
@@ -26,13 +25,12 @@ class XMLParser:
 
         # self.printd(ET.tostring(root, encoding='utf8').decode('utf8'))
         states = {}
-        rootState = None
+        root_state = None
         for state in root:
             name = state.find("name").text
             states[name] = State(name)
-            if rootState is None:
-                rootState = states[name]
-
+            if root_state is None:
+                root_state = states[name]
 
         for state in root:
             statename = state.find("name").text
@@ -40,37 +38,37 @@ class XMLParser:
             self.printd("\tName: {}".format(statename))
             self.printd("\tStateActions: {} actions".format(len(state.findall("stateaction"))))
 
-            #State Actions
+            # State Actions
             for stateaction in state.findall("stateaction"):
-                type = stateaction.find("action").find("type").text
+                typ = stateaction.find("action").find("type").text
                 value = stateaction.find("action").find("value").text
                 to = states[stateaction.find("to").text]
 
-                stateactionObj = StateAction(
+                stateaction_obj = StateAction(
                     Action(
-                        ActionType().getType(type),
+                        ActionType().get_type(typ),
                         value
                     ),
                     to
                 )
-                states[statename].addAction(stateactionObj)
-                self.printd("\t\t{}".format(stateactionObj))
-
+                states[statename].add_action(stateaction_obj)
+                self.printd("\t\t{}".format(stateaction_obj))
 
             self.printd("\tResponses: {} responses".format(len(state.findall("response"))))
-            #Responses
+
+            # Responses
             for response in state.findall("response"):
                 name = response.find("name").text
-                type = ResponseType().getType(response.find("type").text)
+                typ = ResponseType().get_type(response.find("type").text)
                 value = response.find("value").text
                 if value.isdigit():
                     value = int(value)
                 elif value in states:
                     value = states[value]
 
-                responseObj = Response(name, type, value)
-                states[statename].addResponse(responseObj)
-                self.printd("\t\t{}".format(responseObj))
+                response_obj = Response(name, typ, value)
+                states[statename].add_response(response_obj)
+                self.printd("\t\t{}".format(response_obj))
 
-        graph.setCurrentState(rootState)
+        graph.set_current_state(root_state)
         return graph

@@ -1,19 +1,17 @@
 from StateGraph import *
 from XMLParser import *
 
-graph = XMLParser(file = "sample1a.xml").parse()
+graph = XMLParser(graph_file="sample1a.xml", debug=False).parse()
 
+# Check currnet state
+print("Current State: {}".format(graph.get_current_state().name))
 
-
-#Check currnet state
-print("Current State: {}".format(graph.getCurrentState().name))
-
-#Simulate an action
+# Simulate an action
 print("Simulating Action of VoiceCommand hello")
-graph.onAction(ActionType.VOICE_COMMAND, 'hello')
+graph.apply_action(ActionType.VOICE_COMMAND, 'hello')
 
-#Check currnet state
-print("Current State: {}".format(graph.getCurrentState().name))
+# Check currnet state
+print("Current State: {}".format(graph.get_current_state().name))
 
 
 """
