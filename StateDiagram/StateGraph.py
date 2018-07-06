@@ -21,7 +21,6 @@ class ActionType:
         elif typ == self.VOICE_COMMAND:
             return self.VOICE_COMMAND
 
-
 class Action:
     """
     This Class combines ActionType and action value
@@ -151,8 +150,14 @@ class State:
     def add_action(self, state_action):
         self.stateActions.add(state_action)
 
+    def remove_action(self, state_action):
+        self.stateActions.remove(state_action)
+
     def add_response(self, response):
         self.responses.append(response)
+
+    def remove_response(self, response):
+        self.responses.remove(response)
 
     def get_state_actions(self):
         return self.stateActions
