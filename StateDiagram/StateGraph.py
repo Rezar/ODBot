@@ -172,6 +172,11 @@ class StateGraph:
 
     def __init__(self):
         self.state = None
+        self.on_state_change = self.default_on_state_change
+
+    def set_on_state_change(self, method = None):
+        if method is not None:
+            self.on_state_change = method
 
     def set_current_state(self, state):
         if isinstance(state, State):
@@ -211,7 +216,7 @@ class StateGraph:
 
         self.set_current_state(next_state)
 
-    def on_state_change(self):
+    def default_on_state_change(self):
         print("onStateChange()")
         # Runs through state responses
         print("\tNew Current State: {}".format(self.state))
