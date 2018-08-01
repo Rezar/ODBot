@@ -105,6 +105,15 @@ void loop() { // run over and over
         default:
           Serial.println("BadString: " + serialMsg);
           break;
+        case 'd':
+          Serial.println(msg);
+          if (msg.equals("f")){
+            motorContiuousForward(160);
+          } else if (msg.equals("s")){
+            motorBrake();
+          }
+          break;
+          
         case 'm':
           //case where command is to rotate robot to focus at a certain degree
           //ex: m:270 === move to 270 degree
