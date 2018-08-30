@@ -15,10 +15,18 @@ void moveCamera(int hor, int vert) {
 }
 
 //movement test
-void cameraTest(){
-  while(true){
+void cameraTest() {
+  while (true) {
     moveCamera(random(-180, 720), random(-180, 720));
     delay(300);
+  }
+}
+
+void cameraTest2() {
+  for (int x = 0; x < 180; x+=10) {
+    for (int y = 0; y < 100; y+=10) {
+      moveCamera(x, y);
+    }
   }
 }
 

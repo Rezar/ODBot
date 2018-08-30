@@ -1,5 +1,5 @@
 #include <Servo.h>
-
+#include <math.h>
 /* DC Motor Pins */
 /* Motor 1 */
 const int pinAIN1 = 11; //Direction
@@ -33,6 +33,11 @@ const int leftUltraSonicTrigPin = A2;
 const int leftUltraSonicEchoPin = A3;
 const int rightUltraSonicTrigPin = A4;
 const int rightUltraSonicEchoPin = A5;
+
+/* Ultrasonic Vars for path finding */
+#define ULTRASONIC_LEFT 0
+#define ULTRASONIC_RIGHT 1
+#define ULTRASONIC_FRONT 2
 
 /* Main */
 int idleLoopCount = 0; //Used to count idle cycle
@@ -73,7 +78,7 @@ void setup() {
 
 
 void loop() { // run over and over
-//  readDistances();
+  moveRobotIfNeeded();
   if (Serial.available()) {
 
     idleLoopCount = 0;
@@ -99,12 +104,60 @@ void loop() { // run over and over
       String msg = serialMsg.substring(2, serialMsg.length() - 1); //command content
       
       float lastSource = -1; //if robot rotate command
-      String horizontalVal, verticalVal; //if servo command
+      String horizontalVal, verticalVal; //if camera servo (c) command
       int commaIndex;
+
+      int rawx, rawz; //used for g:[z,x]
+      /*
+       *  Types
+       *   d:[f|s]: blindly move forward or stop
+       *   g:[z,x]: move towards a relative goal. Units in mm
+       *   m:[r]: rotate robot towards a degree
+       *   c:[x,y]: move camera mount servo motors
+       *   e:[s]: debug
+       */ 
       switch (type) {
         default:
           Serial.println("BadString: " + serialMsg);
           break;
+        case 'd':
+          Serial.println(msg);
+          if (msg.equals("f")){
+            motorContiuousForward(160);
+          } else if (msg.equals("s")){
+            motorBrake();
+          }
+          break;
+        case 'g':
+          /* this would make the robot move towards the goal until either g:0,0; is called or is at the goal.
+           *                (left)
+           *               negative
+           *                   ^
+           *      -135 degrees |          -45 degrees
+           *                   |      
+           *     negative      |       positive
+           * (back)  <---------|------------> (front)   0 degrees
+           *                   |          z
+           *    135 degrees    |
+           *                   |             45 degrees
+           *             x     v
+           *               positive
+           *                (right)  
+           *                  90 degrees
+           * 
+           *  For example, g:50,35; means go 50mm to z (back and forth) and 35mm to the x (left and right).
+           *    In the robot's view, it would need to go forward 50mm and right 35mm.
+           *  Similarly, 
+           *  g:-30,0; means go backwards 35mm.  
+           *  g:20,-50; go forwards 20mm and left 50mm.
+           *  
+           */
+          commaIndex = lastIndexOf(msg, ',');
+          rawz = msg.substring(0, commaIndex).toInt();
+          rawx = msg.substring(commaIndex + 1,  msg.length()).toInt();
+          moveRobot(rawz,rawx);
+          break;
+          
         case 'm':
           //case where command is to rotate robot to focus at a certain degree
           //ex: m:270 === move to 270 degree
@@ -121,8 +174,8 @@ void loop() { // run over and over
           //any values beyond the capability of servo motors (0 ~ 180 degrees that is) will be overridden in moveCamera() function
           commaIndex = lastIndexOf(msg, ',');
           horizontalVal = msg.substring(0, commaIndex);
-          verticalVal = msg.substring(commaIndex + 1,  msg.length() - 1);
-          moveCamera(horizontalVal.toInt(), verticalVal.toInt());
+          verticalVal = msg.substring(commaIndex + 1,  msg.length());
+          moveRobot(horizontalVal.toInt(), verticalVal.toInt());
           break;
         case 'e':
           //          Serial.println("r:e " + msg + ";");

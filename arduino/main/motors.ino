@@ -113,6 +113,30 @@ void motorDrive(boolean motor, boolean dir, int mSpeed) {
 
 }
 
+void continuousMotorDrive(boolean motor, boolean dir, int mSpeed) {
+
+  boolean pinIn1;
+  if (dir == turnCW) {
+    pinIn1 = HIGH;
+  } else {
+    pinIn1 = LOW;
+  }
+  if (motor == motor1)  {
+    digitalWrite(pinAIN1, pinIn1);
+    digitalWrite(pinAIN2, !pinIn1);
+  } else {
+    digitalWrite(pinBIN1, pinIn1);
+    digitalWrite(pinBIN2, !pinIn1);
+  }
+
+}
+
+void motorContiuousForward(int mSpeed){
+ //Do a tight turn towards motor1: Motor2 forward, Motor1 reverse
+  motorDrive(motor1, turnCW, 100);
+  motorDrive(motor2, turnCW, 100);
+}
+
 void motorForward(int mSpeed, int duration) {
   //Do a tight turn towards motor1: Motor2 forward, Motor1 reverse
   motorDrive(motor1, turnCW, 100);
