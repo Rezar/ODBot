@@ -3,7 +3,9 @@
 
 
 ## Getting Started
-This project uses **Seeed Studio's 4 mic hat**. For more information on this device, refer to [Seeed studio's wiki page](http://wiki.seeedstudio.com/ReSpeaker_4_Mic_Array_for_Raspberry_Pi/) ([Product page](https://www.seeedstudio.com/ReSpeaker-4-Mic-Array-for-Raspberry-Pi-p-2941.html)).
+This project uses **Seeed Studio's 4 mic hat** and **Respeaker Mic Array v2.0**. For more information on this device, refer to [Seeed studio's wiki page](http://wiki.seeedstudio.com/ReSpeaker_4_Mic_Array_for_Raspberry_Pi/) ([Product page](https://www.seeedstudio.com/ReSpeaker-4-Mic-Array-for-Raspberry-Pi-p-2941.html)).
+
+http://wiki.seeedstudio.com/ReSpeaker_Mic_Array_v2.0/
 
 **Python 2.7** is used for this project and [virtualenv](https://virtualenv.pypa.io/en/stable/) is strongly recommended to isolate python environment.
 
