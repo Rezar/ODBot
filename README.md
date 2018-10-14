@@ -50,7 +50,10 @@ Source -> ChannelPicker -> PocketSphinx
 
 Voice Command Flow
 ```
-Human Voice -> Source -> ChannelPicker -> PocketSphinx KWS
-                                              /     \
-                                            DOA   Serial
+Human Voice -> Source -> ChannelPicker -> PocketSphinx -> KWS
+                                              /             \
+                                            DOA            Arduino Serial Communication
+											                 \
+															 Arduino Command Recognizer
+															
 ```
