@@ -1,4 +1,6 @@
 void moveCamera(int hor, int vert) {
+  pinMode(3, OUTPUT);
+  pinMode(5, OUTPUT);
   //hor = 75 = 90degree
   //hor = 160 = -90degree
   if (vert > 95) vert = 95;
@@ -12,6 +14,8 @@ void moveCamera(int hor, int vert) {
   delay(280);
   horizontalServo.detach();
   verticalServo.detach();
+  pinMode(3, INPUT);
+  pinMode(5, INPUT);
 }
 
 //movement test

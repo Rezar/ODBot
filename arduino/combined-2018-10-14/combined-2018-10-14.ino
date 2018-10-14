@@ -34,6 +34,9 @@ const int leftUltraSonicEchoPin = A3;
 const int rightUltraSonicTrigPin = A4;
 const int rightUltraSonicEchoPin = A5;
 
+/* Variable if continuous driving is called */
+boolean isMotorOn = false;
+
 /* Ultrasonic Vars for path finding */
 #define ULTRASONIC_LEFT 0
 #define ULTRASONIC_RIGHT 1
@@ -53,8 +56,8 @@ void setup() {
   /* End of DC Motor Pins */
 
   /* Servo Attach */
-  horizontalServo.attach(horizontalCamPin);
-  verticalServo.attach(verticalCamPin);
+//  horizontalServo.attach(horizontalCamPin);
+//  verticalServo.attach(verticalCamPin);
   /* End of Servo Attach */
 
   /* Ultrasonic Sensor Pins */
@@ -73,12 +76,20 @@ void setup() {
   /* End of Serial Preparation */
   delay(50);
   Serial.println("e:ready;"); //Notify RPI that Arduino is ready
+//    while(true){
+//      readDistances();
+//      delay(200);
+//    }
 }
 
 
 
 void loop() { // run over and over
-  moveRobotIfNeeded();
+  //  moveRobotIfNeeded();
+  if (isMotorOn) {
+    avoidBump();
+//    readDistances();
+  }
   if (Serial.available()) {
 
     idleLoopCount = 0;
@@ -87,82 +98,84 @@ void loop() { // run over and over
     //Check for syntax
     while (raw.indexOf(";") > 0) {
       String serialMsg = raw.substring(0, raw.indexOf(";") + 1); //fetch oldest message first
-     
+
       if (raw.indexOf(";") + 1 < raw.length()) {
         raw = raw.substring(raw.indexOf(";") + 1, raw.length() + 1);
       } else {
         raw = "";
       }
 
-   
+
       if (serialMsg.length() <= 3) { //although very simple and clumsy, all commands are right now more than 3 letters long
         Serial.println("BadString: " + serialMsg);
         return; //ignore bad string
       }
-      
+
       char type = serialMsg[0]; //type of command
       String msg = serialMsg.substring(2, serialMsg.length() - 1); //command content
-      
+
       float lastSource = -1; //if robot rotate command
       String horizontalVal, verticalVal; //if camera servo (c) command
       int commaIndex;
 
       int rawx, rawz; //used for g:[z,x]
       /*
-       *  Types
-       *   d:[f|s]: blindly move forward or stop
-       *   g:[z,x]: move towards a relative goal. Units in mm
-       *   m:[r]: rotate robot towards a degree
-       *   c:[x,y]: move camera mount servo motors
-       *   e:[s]: debug
-       */ 
+          Types
+           d:[f|s]: blindly move forward or stop
+           g:[z,x]: move towards a relative goal. Units in mm
+           m:[r]: rotate robot towards a degree
+           c:[x,y]: move camera mount servo motors
+           e:[s]: debug
+      */
       switch (type) {
         default:
           Serial.println("BadString: " + serialMsg);
           break;
         case 'd':
           Serial.println(msg);
-          if (msg.equals("f")){
-            motorContiuousForward(160);
-          } else if (msg.equals("s")){
+          if (msg.equals("f")) {
+            isMotorOn = true;
+            motorContiuousForward(50);
+          } else if (msg.equals("s")) {
             motorBrake();
+            isMotorOn = false;
           }
           break;
         case 'g':
           /* this would make the robot move towards the goal until either g:0,0; is called or is at the goal.
-           *                (left)
-           *               negative
-           *                   ^
-           *      -135 degrees |          -45 degrees
-           *                   |      
-           *     negative      |       positive
-           * (back)  <---------|------------> (front)   0 degrees
-           *                   |          z
-           *    135 degrees    |
-           *                   |             45 degrees
-           *             x     v
-           *               positive
-           *                (right)  
-           *                  90 degrees
-           * 
-           *  For example, g:50,35; means go 50mm to z (back and forth) and 35mm to the x (left and right).
-           *    In the robot's view, it would need to go forward 50mm and right 35mm.
-           *  Similarly, 
-           *  g:-30,0; means go backwards 35mm.  
-           *  g:20,-50; go forwards 20mm and left 50mm.
-           *  
-           */
+                            (left)
+                           negative
+                               ^
+                  -135 degrees |          -45 degrees
+                               |
+                 negative      |       positive
+             (back)  <---------|------------> (front)   0 degrees
+                               |          z
+                135 degrees    |
+                               |             45 degrees
+                         x     v
+                           positive
+                            (right)
+                              90 degrees
+
+              For example, g:50,35; means go 50mm to z (back and forth) and 35mm to the x (left and right).
+                In the robot's view, it would need to go forward 50mm and right 35mm.
+              Similarly,
+              g:-30,0; means go backwards 35mm.
+              g:20,-50; go forwards 20mm and left 50mm.
+
+          */
           commaIndex = lastIndexOf(msg, ',');
           rawz = msg.substring(0, commaIndex).toInt();
           rawx = msg.substring(commaIndex + 1,  msg.length()).toInt();
-          moveRobot(rawz,rawx);
+          moveRobot(rawz, rawx);
           break;
-          
+
         case 'm':
           //case where command is to rotate robot to focus at a certain degree
           //ex: m:270 === move to 270 degree
           //ex: m:13 === move to 13 degree
-          
+
           //Serial.println("r:m " + String(msg.toFloat()) + ";");
           lastSource = msg.toFloat();
           motorsStandby(); //IMPORTANT
@@ -175,7 +188,7 @@ void loop() { // run over and over
           commaIndex = lastIndexOf(msg, ',');
           horizontalVal = msg.substring(0, commaIndex);
           verticalVal = msg.substring(commaIndex + 1,  msg.length());
-          moveRobot(horizontalVal.toInt(), verticalVal.toInt());
+          moveCamera(horizontalVal.toInt(), verticalVal.toInt());
           break;
         case 'e':
           //          Serial.println("r:e " + msg + ";");

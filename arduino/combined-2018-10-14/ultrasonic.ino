@@ -2,7 +2,7 @@
 int raw_distances[3][3] = {{0,0,0},{0,0,0},{0,0,0}}; //used to store previous 3 distances
 
 long duration;
-int distance;
+double distance;
 
 int measureDistance(int trigPin, int echoPin) {
   // Clears the trigPin
@@ -32,11 +32,13 @@ int measureSmoothDistance(int dir){
   } else {
     Serial.print("Wrong dir measureSmoothDistance()");
   }
+  delay(5);
   //record distance
   raw_distances[dir][2] = raw_distances[dir][1];
   raw_distances[dir][1] = raw_distances[dir][0];
   raw_distances[dir][0] = dist;
-
+  delay(5);
+//  Serial.println("debug dist from ultrasonic : " + String(dir) + " " + String(dist) + " " + ((raw_distances[dir][2] + raw_distances[dir][1] + raw_distances[dir][0])/3));
   return ((raw_distances[dir][2] + raw_distances[dir][1] + raw_distances[dir][0])/3);
 }
 

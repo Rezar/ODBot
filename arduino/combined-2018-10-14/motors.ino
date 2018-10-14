@@ -1,4 +1,5 @@
 void moveMotors2(int lastSource) {
+  //270 is front. left is dir < 270 && dir >= 90. right is >270 <=90
   if (lastSource >= 0) {
     //We're running motors
     //Serial.println(String(lastSource) + " is greater than 0 " );
@@ -33,6 +34,8 @@ void moveMotors2(int lastSource) {
 }
 
 void moveMotors(int lastSource) {
+  //lastSource <= 90 && >270 left
+  //else right
   if (lastSource >= 0) {
     //We're running motors
     //Serial.println(String(lastSource) + " is greater than 0 " );
@@ -133,6 +136,11 @@ void continuousMotorDrive(boolean motor, boolean dir, int mSpeed) {
 
 void motorContiuousForward(int mSpeed){
  //Do a tight turn towards motor1: Motor2 forward, Motor1 reverse
+  motorDrive(motor1, turnCCW, 100);
+  motorDrive(motor2, turnCCW, 100);
+}
+void motorContiuousBack(int mSpeed){
+ //Do a tight turn towards motor1: Motor2 forward, Motor1 reverse
   motorDrive(motor1, turnCW, 100);
   motorDrive(motor2, turnCW, 100);
 }
@@ -149,6 +157,8 @@ void motorForward(int mSpeed, int duration) {
 void motorBrake() {
   analogWrite(pinPWMAB, 0);
   motorsStandby();
+   isMotorOn = false;
+   Serial.println("Stopped");
 }
 
 
