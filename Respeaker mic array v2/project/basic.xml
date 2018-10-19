@@ -12,6 +12,20 @@ Very intuitive and easy to follow but duplicate code will be often used and file
         <stateaction>
             <action>
                 <type>voice_command</type>
+                <value>BOT</value>
+            </action>
+            <to>command_listening_state</to>
+        </stateaction>
+        <stateaction>
+            <action>
+                <type>voice_command</type>
+                <value>ALEXA</value>
+            </action>
+            <to>command_listening_state</to>
+        </stateaction>
+        <stateaction>
+            <action>
+                <type>voice_command</type>
                 <value>ODBOT</value>
             </action>
             <to>command_listening_state</to>
@@ -59,6 +73,11 @@ Very intuitive and easy to follow but duplicate code will be often used and file
 
     <state>
         <name>command_listening_state</name>
+        <response>
+            <name>Motor stop</name>
+            <type>motor_move</type>
+            <value>stop</value>
+        </response>
         <response>
             <name>Listening LED</name>
             <type>led</type>
@@ -130,6 +149,21 @@ Very intuitive and easy to follow but duplicate code will be often used and file
             </action>
             <to>root_state</to>
         </stateaction>
+        <stateaction>
+            <action>
+                <type>voice_command</type>
+                <value>ODBOT</value>
+            </action>
+            <to>command_listening_state</to>
+        </stateaction>
+        <stateaction>
+            <action>
+                <type>voice_command</type>
+                <value>ODD BOT</value>
+            </action>
+            <to>command_listening_state</to>
+        </stateaction>
+
         <!-- <stateaction>
             <action>
                 <type>voice_command</type>

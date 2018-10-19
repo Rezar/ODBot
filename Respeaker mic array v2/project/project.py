@@ -31,20 +31,22 @@ else:
     mic = None
     pixels = None
 
+#last_time_motor_moved = 0
 last_time_motor_moved = 0
-
 
 def main():
     model_path = get_model_path()
     config = Decoder.default_config()
-    # config.set_string('-hmm', os.path.join(model_path, 'en-us'))
-    # config.set_string('-lm', os.path.join(model_path, 'en-us.lm.bin'))
-    # config.set_string('-dict', os.path.join(model_path, 'cmudict-en-us.dict'))
     config.set_string('-hmm', os.path.join(model_path, 'en-us'))
-    config.set_string('-lm', '2823.lm')
+    #config.set_string('-lm', os.path.join(model_path, 'en-us.lm.bin'))
+    # config.set_string('-dict', os.path.join(model_path, 'cmudict-en-us.dict'))
+    #config.set_string('-hmm', os.path.join(model_path, 'en-us'))
+    #config.set_string('-lm', '2823.lm')
     config.set_string('-verbose', 'False')
-    config.set_string('-dict', '2823.dic')
+    #config.set_string('-dict', '2823.dic')
     config.set_string('-kws', 'keyphrase.list')
+    config.set_string('-lm', '0214.lm')
+    config.set_string('-dict', '0214.dic')
     config.set_string('-logfn', '/dev/null')
 
 
@@ -144,8 +146,12 @@ def main():
 
     def on_detected(word):
         start = datetime.now()
-        if simpletime.time() - last_time_motor_moved > 0.4:
+        global last_time_motor_moved
+        if simpletime.time() - last_time_motor_moved > 1.3:
             print("on_detected with word = ")
+            last_time_motor_moved = simpletime.time();
+            #print(last_time_motor_moved)
+            #print(simpletime.time())
             graph.apply_action(ActionType.VOICE_COMMAND, word.hypstr)
         else:
             print("on_detected ignored - motor movement")
@@ -182,7 +188,8 @@ def main():
                     if not in_speech_bf:
                         decoder.end_utt()
                         # print 'Result:', decoder.hyp().hypstr
-                        on_detected(decoder.hyp())
+                        if decoder.hyp() is not None:
+                            on_detected(decoder.hyp())
                         decoder.start_utt()
             else:
                 break

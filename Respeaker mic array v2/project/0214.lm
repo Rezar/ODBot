@@ -1,0 +1,78 @@
+Language model created by QuickLM on Thu Oct 18 20:35:04 EDT 2018
+Copyright (c) 1996-2010 Carnegie Mellon University and Alexander I. Rudnicky
+
+The model is in standard ARPA format, designed by Doug Paul while he was at MITRE.
+
+The code that was used to produce this language model is available in Open Source.
+Please visit http://www.speech.cs.cmu.edu/tools/ for more information
+
+The (fixed) discount mass is 0.5. The backoffs are computed using the ratio method.
+This model based on a corpus of 10 sentences and 15 words
+
+\data\
+ngram 1=15
+ngram 2=23
+ngram 3=17
+
+\1-grams:
+-0.8692 </s> -0.3010
+-0.8692 <s> -0.2311
+-1.8692 ALEXA -0.2380
+-1.8692 BACKWARDS -0.2380
+-1.8692 BOT -0.2380
+-1.8692 FOLLOW -0.2951
+-1.8692 FORWARD -0.2380
+-1.5682 GO -0.2891
+-1.3921 HEY -0.2769
+-1.8692 ME -0.2380
+-1.5682 ODBOT -0.2380
+-1.8692 ODD -0.2951
+-1.8692 ODDBOT -0.2380
+-1.8692 SHUTDOWN -0.2380
+-1.8692 STOP -0.2380
+
+\2-grams:
+-1.3010 <s> FOLLOW 0.0000
+-1.0000 <s> GO 0.0000
+-0.8239 <s> HEY 0.0000
+-1.3010 <s> ODBOT 0.0000
+-1.3010 <s> ODDBOT 0.0000
+-1.3010 <s> SHUTDOWN 0.0000
+-1.3010 <s> STOP 0.0000
+-0.3010 ALEXA </s> -0.3010
+-0.3010 BACKWARDS </s> -0.3010
+-0.3010 BOT </s> -0.3010
+-0.3010 FOLLOW ME 0.0000
+-0.3010 FORWARD </s> -0.3010
+-0.6021 GO BACKWARDS 0.0000
+-0.6021 GO FORWARD 0.0000
+-0.7782 HEY ALEXA 0.0000
+-0.7782 HEY ODBOT 0.0000
+-0.7782 HEY ODD 0.0000
+-0.3010 ME </s> -0.3010
+-0.3010 ODBOT </s> -0.3010
+-0.3010 ODD BOT 0.0000
+-0.3010 ODDBOT </s> -0.3010
+-0.3010 SHUTDOWN </s> -0.3010
+-0.3010 STOP </s> -0.3010
+
+\3-grams:
+-0.3010 <s> FOLLOW ME
+-0.6021 <s> GO BACKWARDS
+-0.6021 <s> GO FORWARD
+-0.7782 <s> HEY ALEXA
+-0.7782 <s> HEY ODBOT
+-0.7782 <s> HEY ODD
+-0.3010 <s> ODBOT </s>
+-0.3010 <s> ODDBOT </s>
+-0.3010 <s> SHUTDOWN </s>
+-0.3010 <s> STOP </s>
+-0.3010 FOLLOW ME </s>
+-0.3010 GO BACKWARDS </s>
+-0.3010 GO FORWARD </s>
+-0.3010 HEY ALEXA </s>
+-0.3010 HEY ODBOT </s>
+-0.3010 HEY ODD BOT
+-0.3010 ODD BOT </s>
+
+\end\
