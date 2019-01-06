@@ -1,6 +1,8 @@
 
 # ODBot
 
+**Please take a look at our [wiki](https://github.com/Rezar/ODBot/wiki) before getting starting!**
+
 > This is a snapshot version for Respeaker 4 Mic Hat for RPI version. Later version will use Respeaker Mic Array v2.0
 
 ## Getting Started
