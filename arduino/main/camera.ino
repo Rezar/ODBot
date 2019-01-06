@@ -5,8 +5,8 @@ void moveCamera(int hor, int vert) {
   if (hor > 160) hor = 160;
   if (vert < 0) vert = 0;
   if (hor < 0) hor = 0;
-  horizontalServo.attach(3);
-  verticalServo.attach(5);
+  horizontalServo.attach(horizontalCamPin);
+  verticalServo.attach(verticalCamPin);
   horizontalServo.write(hor);
   verticalServo.write(vert);
   delay(280);

@@ -3,15 +3,15 @@
 /* DC Motor Pins */
 /* Motor 1 */
 const int pinAIN1 = 11; //Direction
-const int pinAIN2 = 10; //Direction
+const int pinAIN2 = 12; //Direction
 
 /* Motor 2 */
-const int pinBIN1 = 9; //Direction
+const int pinBIN1 = 7; //Direction
 const int pinBIN2 = 8; //Direction
 
 /* Shared */
-const int pinPWMAB = 6; //PWM Speed
-const int pinSTBY = 7; //Pin for StandBy Mode
+const int pinPWMAB = 10; //PWM Speed
+const int pinSTBY = 9; //Pin for StandBy Mode
 
 /* DC Motor Config */
 static boolean turnCW = 0;  //for motorDrive function
@@ -23,8 +23,8 @@ static boolean motor2 = 1;  //for motorDrive, motorStop, motorBrake functions
 /* Servo Pins */
 static Servo horizontalServo;
 static Servo verticalServo;
-const int horizontalCamPin = 3; //PWM
-const int verticalCamPin = 5; //PWM
+const int horizontalCamPin = A9; //PWM
+const int verticalCamPin = A8; //PWM
 
 /* Ultrasonic Sensor Pins */
 const int frontUltraSonicTrigPin = A0;
@@ -55,6 +55,8 @@ void setup() {
   /* Servo Attach */
   horizontalServo.attach(horizontalCamPin);
   verticalServo.attach(verticalCamPin);
+  horizontalServo.detach();
+  verticalServo.detach();
   /* End of Servo Attach */
 
   /* Ultrasonic Sensor Pins */
@@ -65,7 +67,7 @@ void setup() {
   pinMode(rightUltraSonicTrigPin, OUTPUT);
   pinMode(rightUltraSonicEchoPin, INPUT);
   /* End of Ultrasonic Sensor Pins */
-
+  pinMode(13, OUTPUT);
   /* Serial Preparation */
   Serial.begin(57600);
   Serial.setTimeout(100);
@@ -78,9 +80,12 @@ void setup() {
 
 
 void loop() { // run over and over
-  moveRobotIfNeeded();
+  digitalWrite(13, HIGH);
+//  cameraTest();
+//  moveRobotIfNeeded();
   if (Serial.available()) {
-
+    
+    digitalWrite(13, LOW);
     idleLoopCount = 0;
     String raw = Serial.readString(); //Read from Serial
 
@@ -181,6 +186,12 @@ void loop() { // run over and over
           //          Serial.println("r:e " + msg + ";");
           //echo?
           break;
+        case 't':
+          for (int i = 0; i <100; i++){
+            readDistances();
+            delay(300);
+          }
+          break;
       } //end of case
     } //end of command loop
 
@@ -197,6 +208,7 @@ void loop() { // run over and over
     }
     delay(100);
   }
+  
 }
 
 int lastIndexOf(String s, char c) {
