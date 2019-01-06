@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+This version is very state-centric.
+Stateactions and responses are not reused.
+States have unique names
+Very intuitive and easy to follow but duplicate code will be often used and file size can get quite big in a big project
+-->
+<graph>
+    <!-- States -->
+    <state>
+        <name>root_state</name>
+        <stateaction>
+            <action>
+                <type>voice_command</type>
+                <value>ODBOT</value>
+            </action>
+            <to>command_listening_state</to>
+        </stateaction>
+        <stateaction>
+            <action>
+                <type>voice_command</type>
+                <value>ODD BOT</value>
+            </action>
+            <to>command_listening_state</to>
+        </stateaction>
+        <stateaction>
+            <action>
+                <type>voice_command</type>
+                <value>HEY BOT</value>
+            </action>
+            <to>command_listening_state</to>
+        </stateaction>
+        <stateaction>
+            <action>
+                <type>voice_command</type>
+                <value>HI BOT</value>
+            </action>
+            <to>command_listening_state</to>
+        </stateaction>
+        <stateaction>
+            <action>
+                <type>voice_command</type>
+                <value>BOT BOT</value>
+            </action>
+            <to>command_listening_state</to>
+        </stateaction>
+        <response>
+            <name>LED Off</name>
+            <type>led</type>
+            <value>off</value>
+        </response>
+
+        <response>
+            <name>Motor stop</name>
+            <type>motor_move</type>
+            <value>stop</value>
+        </response>
+    </state>
+
+    <state>
+        <name>command_listening_state</name>
+        <response>
+            <name>Listening LED</name>
+            <type>led</type>
+            <value>listening</value>
+        </response>
+        <response>
+            <name>Camera towards voice</name>
+            <type>camera_move</type>
+            <value>doa</value>
+        </response>
+        <response>
+          <name>Hello</name>
+          <type>voice_response</type>
+          <value>hello</value>
+        </response>
+        <stateaction>
+            <action>
+                <type>voice_command</type>
+                <value>FOLLOW ME</value>
+            </action>
+            <to>follow_me_state</to>
+        </stateaction>
+        <stateaction>
+            <action>
+                <type>voice_command</type>
+                <value>FOLLOWING ME</value>
+            </action>
+            <to>follow_me_state</to>
+        </stateaction>
+        <stateaction>
+            <action>
+                <type>voice_command</type>
+                <value>FOLLOWING</value>
+            </action>
+            <to>follow_me_state</to>
+        </stateaction>
+        <stateaction>
+            <action>
+                <type>voice_command</type>
+                <value>FOLLOW</value>
+            </action>
+            <to>follow_me_state</to>
+        </stateaction>
+        <stateaction>
+            <action>
+                <type>voice_command</type>
+                <value>NEVER MIND</value>
+            </action>
+            <to>root_state</to>
+        </stateaction>
+        <stateaction>
+            <action>
+                <type>voice_command</type>
+                <value>CANCEL</value>
+            </action>
+            <to>root_state</to>
+        </stateaction>
+        <stateaction>
+            <action>
+                <type>voice_command</type>
+                <value>STOP</value>
+            </action>
+            <to>root_state</to>
+        </stateaction>
+        <stateaction>
+            <action>
+                <type>voice_command</type>
+                <value>SHUTDOWN</value>
+            </action>
+            <to>root_state</to>
+        </stateaction>
+        <!-- <stateaction>
+            <action>
+                <type>voice_command</type>
+                <value>HELLO</value>
+            </action>
+            <to>hello_state</to> -->
+        <!-- </stateaction> -->
+    </state>
+
+    <!-- <state>
+        <name>hello_state</name>
+        <response>
+            <name>Hello LED</name>
+            <type>voice_response</type>
+            <value>hello  I am odd bot</value>
+        </response>
+        <response>
+            <name>Hello LED</name>
+            <type>led</type>
+            <value>hello</value>
+        </response>
+        <response>
+            <name>Going back to Root State</name>
+            <type>go_to_state</type>
+            <value>root_state</value>
+        </response>
+    </state> -->
+
+    <state>
+        <name>ok_state</name>
+        <response>
+            <name>Motor stop</name>
+            <type>motor_move</type>
+            <value>stop</value>
+        </response>
+        <response>
+            <name>Ok voice</name>
+            <type>voice_response</type>
+            <value>okay</value>
+        </response>
+        <response>
+            <name>Going back to Root State</name>
+            <type>go_to_state</type>
+            <value>root_state</value>
+        </response>
+    </state>
+
+    <state>
+        <name>follow_me_state</name>
+        <response>
+            <name>follow voice</name>
+            <type>voice_response</type>
+            <value>on your command</value>
+        </response>
+        <response>
+            <name>Following LED</name>
+            <type>led</type>
+            <value>following</value>
+        </response>
+        <response>
+            <name>Motor forward</name>
+            <type>motor_move</type>
+            <value>forward</value>
+        </response>
+        <stateaction>
+            <action>
+                <type>voice_command</type>
+                <value>never mind</value>
+            </action>
+            <to>root_state</to>
+        </stateaction>
+        <stateaction>
+            <action>
+                <type>voice_command</type>
+                <value>NEVER MIND</value>
+            </action>
+            <to>root_state</to>
+        </stateaction>
+        <stateaction>
+            <action>
+                <type>voice_command</type>
+                <value>CANCEL</value>
+            </action>
+            <to>ok_state</to>
+        </stateaction>
+        <stateaction>
+            <action>
+                <type>voice_command</type>
+                <value>STOP</value>
+            </action>
+            <to>ok_state</to>
+        </stateaction>
+        <stateaction>
+            <action>
+                <type>voice_command</type>
+                <value>STOP FOLLOWING</value>
+            </action>
+            <to>ok_state</to>
+        </stateaction>
+        <stateaction>
+            <action>
+                <type>voice_command</type>
+                <value>STOP FOLLOWING ME</value>
+            </action>
+            <to>ok_state</to>
+        </stateaction>
+        <stateaction>
+            <action>
+                <type>voice_command</type>
+                <value>SHUTDOWN</value>
+            </action>
+            <to>ok_state</to>
+        </stateaction>
+    </state>
+</graph>
