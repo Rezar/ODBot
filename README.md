@@ -61,3 +61,5 @@ Human Voice -> Source -> ChannelPicker -> PocketSphinx -> KWS
 															 Arduino Command Recognizer
 															
 ```
+## How to build the ODbot (cooking reciepe)
+https://drive.google.com/open?id=1q2JHpqTQjX9pdawrUT7o65O4GIdZvtEY 
