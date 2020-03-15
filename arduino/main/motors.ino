@@ -133,7 +133,7 @@ void continuousMotorDrive(boolean motor, boolean dir, int mSpeed) {
 
 void motorContiuousForward(int mSpeed){
  //Do a tight turn towards motor1: Motor2 forward, Motor1 reverse
-  motorDrive(motor1, turnCW, 100);
+  motorDrive(motor1, turnCW, 120);
   motorDrive(motor2, turnCW, 100);
 }
 
