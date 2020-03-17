@@ -95,7 +95,7 @@ void motorDrive(boolean motor, boolean dir, int mSpeed) {
 
   boolean pinIn1;
   if (dir == turnCW) {
-    pinIn1 = LOW;
+    pinIn1 = HIGH;
   } else {
     pinIn1 = LOW;
   }
