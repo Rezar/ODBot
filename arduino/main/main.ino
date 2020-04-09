@@ -1,5 +1,6 @@
 #include <Servo.h>
 #include <math.h>
+#include <NewPing.h>
 /* DC Motor Pins */
 /* Motor 1 */
 const int pinAIN1 = 11; //Direction
@@ -82,8 +83,15 @@ void setup() {
 void loop() { // run over and over
   digitalWrite(13, HIGH);
 //  cameraTest();
+
+  //Three lines below output the front sensor distance to Serial
+  //long dist = howFar(frontUltraSonicTrigPin,frontUltraSonicEchoPin);
+  //Serial.println(dist);
+  //delay(100);
+
 //  moveRobotIfNeeded();
   if (Serial.available()) {
+
     
     digitalWrite(13, LOW);
     idleLoopCount = 0;
@@ -125,10 +133,26 @@ void loop() { // run over and over
         default:
           Serial.println("BadString: " + serialMsg);
           break;
-        case 'd':
+        case 'd': //where ODBOT drives forward, then stops in front of an obstacle
           Serial.println(msg);
           if (msg.equals("f")){
             motorContiuousForward(160);
+
+            while (true) {
+              int dist = howFar(frontUltraSonicTrigPin,frontUltraSonicEchoPin);
+              delay(50);
+              Serial.println(dist);
+              if (dist < 20) {
+                motorBrake();
+                break;
+                
+              }
+            }
+            
+              
+            // Code here will stop ODBOT from hitting an obstacle
+            
+            // avoided?
           } else if (msg.equals("s")){
             motorBrake();
           }
