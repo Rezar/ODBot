@@ -3,7 +3,11 @@
 
 MMA8452Q accel;                   // create instance of the MMA8452 class
 
+int time;
+
 void setup() {
+  
+  
   Serial.begin(9600);
   Serial.println("MMA8452Q Basic Reading Code!");
   Wire.begin();
@@ -17,7 +21,11 @@ void setup() {
 void loop() {
   if (accel.available()) {      // Wait for new data from accelerometer
     // We need acceleration in Y direction in terms of g units
+    time = millis();
     Serial.print(accel.getCalculatedY(), 3);
+    Serial.print('\t');
+    Serial.print(time);
+    delay(50);
     Serial.println();
     // Attempt to calculate velocity
     
