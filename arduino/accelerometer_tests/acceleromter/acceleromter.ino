@@ -6,11 +6,6 @@ MMA8452Q accel;                   // create instance of the MMA8452 class
 int interval = 500;
 float acc;
 
-int time;
-
-float deltaV;
-int v = -1;
-
 void setup() {
   
   
@@ -34,11 +29,13 @@ float velocity = 0;
 void loop() {
   if (accel.available()) {      // Wait for new data from accelerometer
     // We need acceleration in Y direction in terms of g units
+    // Have a shorter interval, eliminate noise
     acc = accel.getCalculatedY();
     acc = acc / 64 * 980; //converts to cm/s^2
     CurrentTime = millis();
     ElapsedTime = CurrentTime - StartTime;
     // Attempt to calculate velocity
+    // Adjust for tilt, may be able to eliminate noise based on this 
     if (abs(acc) > 1) {
       velocity += acc *(ElapsedTime/1000);
     }
