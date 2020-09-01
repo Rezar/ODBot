@@ -7,15 +7,12 @@ int interval = 100;
 
 float acc;
 
-<<<<<<< HEAD
 
 int time;
 
 float deltaV;
 int v = -1;
 
-=======
->>>>>>> 98922a9e74ef260be356c4854bb70f96ef45b2d4
 void setup() {
   
   
@@ -46,12 +43,13 @@ void loop() {
     CurrentTime = millis();
     ElapsedTime = CurrentTime - StartTime;
     // Attempt to calculate velocity
-<<<<<<< HEAD
+
     if (abs(acc - noise) > 0.1) {
-=======
+
     // Adjust for tilt, may be able to eliminate noise based on this 
     if (abs(acc) > 1) {
->>>>>>> 98922a9e74ef260be356c4854bb70f96ef45b2d4
+
+    if (abs(acc - noise) > 0.1) {
       velocity += acc *(ElapsedTime/1000);
     }
     //Printing data
