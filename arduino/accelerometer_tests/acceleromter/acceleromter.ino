@@ -3,8 +3,15 @@
 
 MMA8452Q accel;                   // create instance of the MMA8452 class
 
-int interval = 500;
+int interval = 100;
+
 float acc;
+
+
+int time;
+
+float deltaV;
+int v = -1;
 
 void setup() {
   
@@ -24,7 +31,7 @@ float StartTime = millis();
 float CurrentTime;
 float ElapsedTime;
 float velocity = 0;
-
+float noise=accel.getCalculatedY();
 
 void loop() {
   if (accel.available()) {      // Wait for new data from accelerometer
@@ -32,16 +39,16 @@ void loop() {
     // Have a shorter interval, eliminate noise
     acc = accel.getCalculatedY();
     acc = acc / 64 * 980; //converts to cm/s^2
+    noise = noise / 64 * 980;
     CurrentTime = millis();
     ElapsedTime = CurrentTime - StartTime;
     // Attempt to calculate velocity
-    // Adjust for tilt, may be able to eliminate noise based on this 
-    if (abs(acc) > 1) {
+    if (abs(acc - noise) > 0.1) {
       velocity += acc *(ElapsedTime/1000);
     }
     //Printing data
     delay(interval);
-    Serial.print(acc);
+    Serial.print(noise);
     Serial.print('\t');
     Serial.print(ElapsedTime);
     Serial.print('\t');
