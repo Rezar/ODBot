@@ -62,10 +62,10 @@ void moveMotors(int lastSource) {
     */
     if (diff > 10) {
       if (dir == 1) {
-        turnL(diff * 2.5 + 60);
+        turnL(diff * 5 + 60);
 //        Serial.println("Turn left by" + String(diff * 2.5 + 60));
       } else if (dir == -1) {
-        turnR(diff * 2.5 + 60);
+        turnR(diff * 5 + 60);
 //        Serial.println("Turn right by" + String(diff * 2.5 + 60));
       }
       delay(300);// + diff * 8);
@@ -74,8 +74,8 @@ void moveMotors(int lastSource) {
 }
 void turnL(int t) {
   //Do a tight turn towards motor1: Motor2 forward, Motor1 reverse
-  motorDrive(motor1, turnCCW, 160);
-  motorDrive(motor2, turnCW, 160);
+  motorDrive(motor1, turnCCW, 450);
+  motorDrive(motor2, turnCW, 450);
   delay(t);
   motorBrake();
   //  motorsStandby();
@@ -84,8 +84,8 @@ void turnL(int t) {
 
 void turnR(int t) {
   //Do a tight turn towards motor1: Motor2 forward, Motor1 reverse
-  motorDrive(motor1, turnCW, 160);
-  motorDrive(motor2, turnCCW, 160);
+  motorDrive(motor1, turnCW, 450);
+  motorDrive(motor2, turnCCW, 450);
   delay(t);
   motorBrake();
   //  motorsStandby();
@@ -132,9 +132,9 @@ void continuousMotorDrive(boolean motor, boolean dir, int mSpeed) {
 }
 
 void motorContiuousForward(int mSpeed){
- //Do a tight turn towards motor1: Motor2 forward, Motor1 reverse
-  motorDrive(motor1, turnCW, 100);
-  motorDrive(motor2, turnCW, 100);
+ //Drive straight ahead
+  motorDrive(motor1, turnCCW, 100);
+  motorDrive(motor2, turnCCW, 100);
 }
 
 void motorForward(int mSpeed, int duration) {

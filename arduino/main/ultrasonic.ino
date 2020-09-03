@@ -4,6 +4,15 @@ int raw_distances[3][3] = {{0,0,0},{0,0,0},{0,0,0}}; //used to store previous 3 
 long duration;
 int distance;
 
+int howFar(int trigPin, int echoPin) {
+  NewPing sonar(trigPin, echoPin, 200); //set maxDistance to 200 for now
+  delay(50);
+  unsigned int uS = sonar.ping();
+  return sonar.convert_cm(uS);
+}
+
+
+
 int measureDistance(int trigPin, int echoPin) {
   // Clears the trigPin
   digitalWrite(trigPin, LOW);
@@ -49,5 +58,3 @@ void readDistances() {
   Serial.println(measureDistance(rightUltraSonicTrigPin, rightUltraSonicEchoPin));
   delay(10);
 }
-
-

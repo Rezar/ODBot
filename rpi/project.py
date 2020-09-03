@@ -114,7 +114,7 @@ def main():
                     if response.value == 'doa':
                         if mic is not None:
                             voice_direction = mic.direction
-                            print "voice from " + str(voice_direction)
+                            print("voice from " + str(voice_direction))
                             arduino_command = "m:" + str(voice_direction) + ";"
                             if voice_direction < 180:
                                 #voice is coming from behind
